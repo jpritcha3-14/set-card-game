@@ -7,7 +7,7 @@ The game consists of 81 cards containing symbols with 3 unique variants of 4 pro
 * Shape (oval, diamond, squiggle)
 * Shading (open, striped, solid)
 
-The goal of the game is to identify sets of 3 cards where, for each propertiy, all 3 cards have the same varient or all three cards have a different varient.
+The goal of the game is to identify sets of 3 cards where, for each property, all 3 cards have the same variant or all three cards have a different variant.
 
 To identify a set, simply click 3 cards.  The script checks for the validity of the set before replacing the cards with 3 more from the deck.
 
