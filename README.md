@@ -1,7 +1,7 @@
 # SET
-A JavaScript implementation of the popular [SET card game](https://en.wikipedia.org/wiki/Set_(card_game)).  SET is both a fun solitaire and multiplayer game since it doesn't rely on players taking turns, only pattern recognition speed.
+A JavaScript implementation of the popular [SET card game](https://en.wikipedia.org/wiki/Set_(card_game)).  SET is both a fun solitaire and multiplayer game since it doesn't rely on players taking turns, only pattern recognition speed.  The current version of the game [can be played on GitHub Pages by clicking here](https://jpritcha3-14.github.io/set-card-game/).
 
-The game consists of 81 cards containing symbols with 3 unique variants of 4 properties: 
+The game consists of 81 unique cards containing symbols with 3 variants of 4 properties: 
 * Number of symbols (1, 2, 3)
 * Color (red, green, purple)
 * Shape (oval, diamond, squiggle)
