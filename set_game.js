@@ -29,24 +29,29 @@ function initializeDeck() {
     }
 }
 
-
+// Select and deselect cards
 function selectCard(elmnt, loc) {
-    // Select and deselect cards
+
+    // Check if loc already in selected array (-1 if not)
     var select = selected.indexOf(loc);
+
     if (select >= 0) {
         selected.splice(select, 1);
         elmnt.style.border = "5px solid grey";
-    } else {
+        var head = document.getElementById("header");
+        head.innerHTML = "Find SETs";
+        head.style.color = "black";
+    } else if (select < 0 && selected.length < 3) {
         selected.push(loc); 
         elmnt.style.border = "5px solid black";
-    }
-
-    if (selected.length == 3) {
-        checkSet();
+        if (selected.length == 3) {
+            checkSet();
+        } 
     }
 }
 
 function checkSet() {
+    var head = document.getElementById("header")
     var color = [];
     var number = [];
     var shape = [];
@@ -66,8 +71,12 @@ function checkSet() {
     ];
     if (arrSum(features) == 0) {
         console.log('SET!!!');
+        head.innerHTML = "SET Found!";
+        head.style.color = "green";
     } else {
         console.log('not set');
+        head.innerHTML = "Not a SET";
+        head.style.color = "red";
     }
 
 }
