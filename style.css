@@ -31,6 +31,8 @@ td {
 
 ul {
     color: red;
+    display: table;
+    margin: 0 auto;
 }
 
 .row {

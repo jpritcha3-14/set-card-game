@@ -18,9 +18,12 @@ function populateCards() {
 
 function initializeDeck() {
     for (var i = 0; i < 81; i++) {
-        deck.push(i) 
+        deck.push(i);
     }
-    
+    shuffleDeck();
+}
+
+function shuffleDeck() {
     for (var idx = 0; idx < deck.length; idx++) {
         swapIdx = idx + Math.floor(Math.random() * (deck.length - idx));
         var tmp = deck[idx];
@@ -48,6 +51,19 @@ function selectCard(elmnt, loc) {
     }
 }
 
+function replaceCards(cardIdxs) {
+    for (var i = 0; i < cardIdxs.length; i++) {
+        var new_card = deck.pop();
+        var image_tag = '<img src="cards/'.concat(new_card.toString(), '.png">');
+        var cellid = "cell".concat(cardIdxs[i].toString); 
+        var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
+        on_table.splice(cardIdxs[i], 1, new_card)         
+        cell.innerHTML = image_tag;
+        cell.style.border = "5px solid grey";
+    }
+    selected = [];
+}
+
 function checkSet() {
     document.getElementById("prevColumn").style.visibility = "visible";
     var stat = document.getElementById("setStatus")
@@ -55,6 +71,9 @@ function checkSet() {
     var number = [];
     var shape = [];
     var shading = [];
+
+    // Selected contains indicies of the selected cards on the table,
+    // possible_set maps these indicies to the actual card numbers
     var possible_set = selected.map(x => on_table[x]);
     for (var idx in possible_set) {
         color.push(getColor(possible_set[idx]));
@@ -76,6 +95,7 @@ function checkSet() {
     if (arrSum(features) == 0) {
         stat.innerHTML = "Is a SET";
         stat.style.color = "green";
+        replaceCards(selected);
     } else {
         stat.innerHTML = "Is not a SET";
         stat.style.color = "red";
