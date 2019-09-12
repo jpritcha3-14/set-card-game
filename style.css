@@ -1,24 +1,58 @@
+* { 
+    box-sizing: border-box;
+}
+
 body {
     background-color: grey;
 }
-h1 {
+
+h1, h2 {
     text-align: center;
+    margin-bottom: 0px;
 }
+
 table {
     margin-left: auto;
     margin-right: auto;
-    border-spacing: 15px;
+    border-spacing: 20px;
 }
+
 td {
     background-color: white;
     border: 5px solid grey;
 }
 
 td {
-    height: 70px;
-    width: 120px;
+    height: 80px;
+    width: 135px;
     vertical-align: center;
     text-align: center;
+}
+
+ul {
+    color: red;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    padding: 10px;
+}
+
+.left {
+    flex:  25%;
+}
+
+.center {
+    flex: 50%;
+    text-align: left;
+}
+
+.right {
+    flex: 25%;
+    visibility: hidden;
 }
 
 #r4 {

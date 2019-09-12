@@ -4,34 +4,67 @@
         <link rel='stylesheet' type='text/css' href='style.css'>
     </head>
     <body onload="populateCards()">
-        <h1 id="header">Find SETs</h1>
-        <table id="cardsOnTable">
-            <tr id="r0">
-                <td id="r0c0" onclick="selectCard(this, 0)"></td>
-                <td id="r0c1" onclick="selectCard(this, 1)"></td>
-                <td id="r0c2" onclick="selectCard(this, 2)"></td>
-            </tr>
-            <tr id="r1">
-                <td id="r1c0" onclick="selectCard(this, 3)"></td>
-                <td id="r1c1" onclick="selectCard(this, 4)"></td>
-                <td id="r1c2" onclick="selectCard(this, 5)"></td>
-            </tr>
-            <tr id="r2">
-                <td id="r2c0" onclick="selectCard(this, 6)"></td>
-                <td id="r2c1" onclick="selectCard(this, 7)"></td>
-                <td id="r2c2" onclick="selectCard(this, 8)"></td>
-            </tr>
-            <tr id="r3">
-                <td id="r3c0" onclick="selectCard(this, 9)"></td>
-                <td id="r3c1" onclick="selectCard(this, 10)"></td>
-                <td id="r3c2" onclick="selectCard(this, 11)"></td>
-            </tr>
-            <tr id="r4">
-                <td id="r4c0" onclick="selectCard(this, 12)"></td>
-                <td id="r4c1" onclick="selectCard(this, 13)"></td>
-                <td id="r4c2" onclick="selectCard(this, 14)"></td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="left column">
+                <h1>Instructions</h1>
+                <p>Click to select 3 cards that have properties that are either all the same or all different.  The 4 properties are:</p>
+                <ol>
+                    <li>Color</li>
+                    <li>Number (of symbols)</li>
+                    <li>Shape</li>
+                    <li>Shading</li>
+                </ol>
+                <p>If your selection is not a valid set, an explaination will appear to the right of the game area.  Click selected cards to deselect them.</p>
+                <p>SET was <a href="https://gizmodo.com/canine-epilepsy-and-purple-squiggles-the-unexpected-su-1828527912">originally created Marsha Falco</a>, I make no claim to the IP.  Paper copies of SET <a href="https://www.setgame.com/set">can be purchased here</a>.  My code and assets are <a href="https://github.com/jpritcha3-14/set-card-game">avialable on GitHub</a>.</p>
+            </div>
+            <div class="center column">
+                <h1 id="header">SET</h1>
+                <table id="cardsOnTable">
+                    <tr id="r0">
+                        <td id="r0c0" onclick="selectCard(this, 0)"></td>
+                        <td id="r0c1" onclick="selectCard(this, 1)"></td>
+                        <td id="r0c2" onclick="selectCard(this, 2)"></td>
+                    </tr>
+                    <tr id="r1">
+                        <td id="r1c0" onclick="selectCard(this, 3)"></td>
+                        <td id="r1c1" onclick="selectCard(this, 4)"></td>
+                        <td id="r1c2" onclick="selectCard(this, 5)"></td>
+                    </tr>
+                    <tr id="r2">
+                        <td id="r2c0" onclick="selectCard(this, 6)"></td>
+                        <td id="r2c1" onclick="selectCard(this, 7)"></td>
+                        <td id="r2c2" onclick="selectCard(this, 8)"></td>
+                    </tr>
+                    <tr id="r3">
+                        <td id="r3c0" onclick="selectCard(this, 9)"></td>
+                        <td id="r3c1" onclick="selectCard(this, 10)"></td>
+                        <td id="r3c2" onclick="selectCard(this, 11)"></td>
+                    </tr>
+                    <tr id="r4">
+                        <td id="r4c0" onclick="selectCard(this, 12)"></td>
+                        <td id="r4c1" onclick="selectCard(this, 13)"></td>
+                        <td id="r4c2" onclick="selectCard(this, 14)"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="prevColumn" class="right column">
+                <h1>Previous Selection</h1>
+                <h2 id="setStatus"></h2>
+                <table id="previousSelection">
+                    <tr id="r0">
+                        <td id="ps0"></td>
+                    </tr>
+                    <tr id="r1">
+                        <td id="ps1"></td>
+                    </tr>
+                    <tr id="r2">
+                        <td id="ps2"></td>
+                    </tr>
+                </table>
+                <ul id="reasons">
+                </ul>
+            </div>
+        </div>
     </body>
     <script src="set_game.js"></script>
 </html>

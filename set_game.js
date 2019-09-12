@@ -29,18 +29,16 @@ function initializeDeck() {
     }
 }
 
-// Select and deselect cards
 function selectCard(elmnt, loc) {
 
     // Check if loc already in selected array (-1 if not)
     var select = selected.indexOf(loc);
 
+    // Deselect card
     if (select >= 0) {
         selected.splice(select, 1);
         elmnt.style.border = "5px solid grey";
-        var head = document.getElementById("header");
-        head.innerHTML = "Find SETs";
-        head.style.color = "black";
+    // Select card
     } else if (select < 0 && selected.length < 3) {
         selected.push(loc); 
         elmnt.style.border = "5px solid black";
@@ -51,7 +49,8 @@ function selectCard(elmnt, loc) {
 }
 
 function checkSet() {
-    var head = document.getElementById("header")
+    document.getElementById("prevColumn").style.visibility = "visible";
+    var stat = document.getElementById("setStatus")
     var color = [];
     var number = [];
     var shape = [];
@@ -62,6 +61,8 @@ function checkSet() {
         number.push(getNumber(possible_set[idx]));
         shape.push(getShape(possible_set[idx]));
         shading.push(getShading(possible_set[idx]));
+        var image_tag = '<img src="cards/'.concat(possible_set[idx].toString(), '.png">');
+        document.getElementById("ps".concat(idx.toString())).innerHTML = image_tag;
     }
     const features = [ 
         arrSum(color) % 3,
@@ -69,16 +70,22 @@ function checkSet() {
         arrSum(shape) % 3,
         arrSum(shading) % 3,
     ];
+    const names = {0:"color", 1:"number", 2:"shape", 3:"shading"};
+    reasons = document.getElementById("reasons");
+    reasons.innerHTML = "";
     if (arrSum(features) == 0) {
-        console.log('SET!!!');
-        head.innerHTML = "SET Found!";
-        head.style.color = "green";
+        stat.innerHTML = "Is a SET";
+        stat.style.color = "green";
     } else {
-        console.log('not set');
-        head.innerHTML = "Not a SET";
-        head.style.color = "red";
+        stat.innerHTML = "Is not a SET";
+        stat.style.color = "red";
+        for (var i = 0; i < 4; i++) {
+            if (features[i] > 0) {
+                console.log(i)
+                reasons.innerHTML += "<li>2 have same ".concat(names[i], "</li>");
+            }
+        }
     }
-
 }
 
 const arrSum = arr => arr.reduce((a,b) => a + b, 0);
@@ -92,7 +99,7 @@ function getNumber(card) {
 }
 
 function getShape(card) {
-    return Math.floor(((card % 27) % 9) / 3);
+    return Math.floor((card % 9) / 3);
 }
 
 function getShading(card) {
