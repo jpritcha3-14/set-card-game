@@ -14,7 +14,7 @@ h1, h2 {
 table {
     margin-left: auto;
     margin-right: auto;
-    border-spacing: 20px;
+    border-spacing: 15px;
 }
 
 td {
@@ -49,12 +49,20 @@ ul {
 
 .center {
     flex: 50%;
-    text-align: left;
 }
 
 .right {
     flex: 25%;
     visibility: hidden;
+}
+
+.bottom {
+    text-align: center;
+}
+
+#deckCount {
+    padding: 0;
+    margin: 0;
 }
 
 #r4 {

@@ -13,7 +13,12 @@ function populateCards() {
             on_table.push(card_num);
         }
     }
-    console.log(on_table)
+    updateDeckCount();
+}
+
+function updateDeckCount() {
+    document.getElementById("deckCount").innerHTML = 
+        "Cards in Deck: ".concat(deck.length.toString());
 }
 
 function initializeDeck() {
@@ -61,6 +66,7 @@ function replaceCards(cardIdxs) {
         cell.innerHTML = image_tag;
         cell.style.border = "5px solid grey";
     }
+    updateDeckCount();
     selected = [];
 }
 
