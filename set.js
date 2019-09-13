@@ -2,8 +2,13 @@ var deck = [];
 var on_table = []; // unique number (0 - 80) for each card
 var selected = []; // indicies (0 - 11 or 14) of selected cards in on_table
 
-function populateCards() {
-    initializeDeck()
+function startGame() {
+    initializeDeck();
+    dealCards();
+    updateDeckCount();
+}
+
+function dealCards() {
     var grid = document.getElementById("cardsOnTable");
     for (var r = 0; r < 4; r++) {
         for (var c = 0; c < 3; c++) {
@@ -13,7 +18,6 @@ function populateCards() {
             on_table.push(card_num);
         }
     }
-    updateDeckCount();
 }
 
 function updateDeckCount() {
@@ -38,7 +42,8 @@ function shuffleDeck() {
 }
 
 function selectCard(elmnt, loc) {
-
+    document.getElementById("notification").style.color = "grey";
+    
     // Check if loc already in selected array (-1 if not)
     var select = selected.indexOf(loc);
 
@@ -51,7 +56,7 @@ function selectCard(elmnt, loc) {
         selected.push(loc); 
         elmnt.style.border = "5px solid black";
         if (selected.length == 3) {
-            checkSet();
+            checkSelectedSet();
         } 
     }
 }
@@ -70,35 +75,45 @@ function replaceCards(cardIdxs) {
     selected = [];
 }
 
-function checkSet() {
-    document.getElementById("prevColumn").style.visibility = "visible";
-    var stat = document.getElementById("setStatus")
+function getFeatures(possible_set) {
     var color = [];
     var number = [];
     var shape = [];
     var shading = [];
-
-    // Selected contains indicies of the selected cards on the table,
-    // possible_set maps these indicies to the actual card numbers
-    var possible_set = selected.map(x => on_table[x]);
     for (var idx in possible_set) {
         color.push(getColor(possible_set[idx]));
         number.push(getNumber(possible_set[idx]));
         shape.push(getShape(possible_set[idx]));
         shading.push(getShading(possible_set[idx]));
+    }
+    return features = [ 
+       arrSum(color) % 3,
+       arrSum(number) % 3,
+       arrSum(shape) % 3,
+       arrSum(shading) % 3,
+    ];
+}
+
+function isSet(features) {
+    return arrSum(features) == 0;
+}
+
+function checkSelectedSet() {
+    document.getElementById("prevColumn").style.visibility = "visible";
+    var stat = document.getElementById("setStatus")
+
+    // Selected contains indicies of the selected cards on the table,
+    // possible_set maps these indicies to the actual card numbers
+    var possible_set = selected.map(x => on_table[x]);
+    for (var idx in possible_set) {
         var image_tag = '<img src="cards/'.concat(possible_set[idx].toString(), '.png">');
         document.getElementById("ps".concat(idx.toString())).innerHTML = image_tag;
     }
-    const features = [ 
-        arrSum(color) % 3,
-        arrSum(number) % 3,
-        arrSum(shape) % 3,
-        arrSum(shading) % 3,
-    ];
     const names = {0:"color", 1:"number", 2:"shape", 3:"shading"};
     reasons = document.getElementById("reasons");
     reasons.innerHTML = "";
-    if (arrSum(features) == 0) {
+    const features = getFeatures(possible_set);
+    if (isSet(features)) {
         stat.innerHTML = "Is a SET";
         stat.style.color = "green";
         replaceCards(selected);
@@ -111,6 +126,33 @@ function checkSet() {
                 reasons.innerHTML += "<li>2 have same ".concat(names[i], "</li>");
             }
         }
+    }
+}
+
+function countSets(cards) {
+    var count = 0;
+    for (var i = 0; i < cards.length; i++) {
+        for (var j = i + 1; j < cards.length; j++) {
+            for (var k = j + 1; k < cards.length; k++) {
+                count = (isSet(getFeatures([cards[i], cards[j], cards[k]])) ? count + 1 : count);   
+            }
+        }
+    }
+    return count;
+}
+
+function dealNewBoard() {
+    var notification = document.getElementById("notification");
+    if (countSets(on_table) == 0) {
+        deck.push(...on_table);
+        on_table = [];
+        shuffleDeck();
+        dealCards();        
+        notification.innerHTML = "12 new cards dealt";
+        notification.style.color = "black";
+    } else {
+        notification.innerHTML = "At least one set on board";
+        notification.style.color = "red";
     }
 }
 
@@ -131,10 +173,3 @@ function getShape(card) {
 function getShading(card) {
     return Math.floor((card % 27) / 9);
 }
-
-
-/* Code for shwoing 4th row
-        var row4 = document.getElementById("r4");
-        row4.style.visibility = "visible";
-        row4.cells[0].style.background = "white";
- */
