@@ -14,6 +14,7 @@ function dealCards() {
         for (var c = 0; c < 3; c++) {
             var card_num = deck.pop();
             var image_tag = '<img src="cards/'.concat(card_num.toString(), '.png">');
+            grid.rows[r].cells[c].style.visibility = "visible"; 
             grid.rows[r].cells[c].innerHTML = image_tag; 
             on_table.push(card_num);
         }
@@ -26,9 +27,16 @@ function updateDeckCount() {
 }
 
 function initializeDeck() {
+    deck = [];
+    on_table = [];
+    selected = [];
+    var notification = document.getElementById("notification");
+    notification.setAttribute("onClick", "");
+    notification.style.color = "grey";
     for (var i = 0; i < 81; i++) {
         deck.push(i);
     }
+    document.getElementById("deck").style.visibility = "visible";
     shuffleDeck();
 }
 
@@ -62,17 +70,42 @@ function selectCard(elmnt, loc) {
 }
 
 function replaceCards(cardIdxs) {
-    for (var i = 0; i < cardIdxs.length; i++) {
-        var new_card = deck.pop();
-        var image_tag = '<img src="cards/'.concat(new_card.toString(), '.png">');
-        var cellid = "cell".concat(cardIdxs[i].toString); 
-        var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
-        on_table.splice(cardIdxs[i], 1, new_card)         
-        cell.innerHTML = image_tag;
-        cell.style.border = "5px solid grey";
+    var deckLogo = document.getElementById("deck");
+    if (deck.length > 0) {
+        for (var i = 0; i < cardIdxs.length; i++) {
+            var new_card = deck.pop();
+            var image_tag = '<img src="cards/'.concat(new_card.toString(), '.png">');
+            var cellid = "cell".concat(cardIdxs[i].toString); 
+            var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
+            on_table.splice(cardIdxs[i], 1, new_card) 
+            cell.innerHTML = image_tag;
+            cell.style.border = "5px solid grey";
+        }
+        deckLogo.style.visibility = (deck.length == 0 ? "hidden" : "visible");
+    } else {
+        for (var i = 0; i < cardIdxs.length; i++) {
+            var cellid = "cell".concat(cardIdxs[i].toString); 
+            var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
+            on_table.splice(cardIdxs[i], 1, -1) 
+            cell.style.border = "5px solid grey";
+        }
+        for (var i = on_table.length-1; i >= 0; i--) {
+            if (on_table[i] == -1) {
+                on_table.splice(i, 1);
+            } 
+        }
+        for (var i = 0; i < 12; i++) {
+            var cell = document.getElementById("cell".concat(i.toString()));
+            if (i < on_table.length) {
+                cell.innerHTML = '<img src="cards/'.concat(on_table[i].toString(), '.png">');
+            } else {
+                cell.style.visibility = "hidden";
+            }
+        }
     }
     updateDeckCount();
     selected = [];
+    checkRemaining();
 }
 
 function getFeatures(possible_set) {
@@ -126,6 +159,7 @@ function checkSelectedSet() {
                 reasons.innerHTML += "<li>2 have same ".concat(names[i], "</li>");
             }
         }
+        checkRemaining();
     }
 }
 
@@ -143,6 +177,7 @@ function countSets(cards) {
 
 function dealNewBoard() {
     var notification = document.getElementById("notification");
+    notification.style.visibility = "visible";
     if (countSets(on_table) == 0) {
         deck.push(...on_table);
         on_table = [];
@@ -153,6 +188,24 @@ function dealNewBoard() {
     } else {
         notification.innerHTML = "At least one set on board";
         notification.style.color = "red";
+    }
+    checkRemaining();
+}
+
+function checkRemaining() {
+    if (deck.length + on_table.length < 21) {
+        var remaining = [];
+        remaining.push(...deck);
+        remaining.push(...on_table);
+        console.log(remaining);
+        console.log("sets remaining: ".concat(countSets(remaining).toString()));
+        if (countSets(remaining) == 0) {
+            var notification = document.getElementById("notification");
+            notification.style.visibility = "visible";
+            notification.innerHTML = "No more SETs, click here to restart";
+            notification.style.color = "blue";
+            notification.setAttribute("onClick", "startGame()");
+        }
     }
 }
 
