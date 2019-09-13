@@ -9,7 +9,7 @@ The game consists of 81 unique cards containing symbols with 3 variants of 4 pro
 
 The goal of the game is to identify SETs of 3 cards where, for each of the 4 properties, all 3 cards have the same variant or all three cards have a different variant.
 
-Click 3 cards to identify a SET.  The script checks the validity of the selected cards as a SET before replacing the cards with 3 more from the deck.  If the selected cards do not form a SET, the reason(s) for this will be displayed to help new players understand the concept.  ~~If there are no sets in the 12 cards, click the deck to shuffle and deal 12 new cards.~~ (To be implemented)
+Click 3 cards to identify a SET.  The script checks the validity of the selected cards as a SET before replacing the cards with 3 more from the deck.  If the selected cards do not form a SET, the reason(s) for this will be displayed to help new players understand the concept.  If there are no SETs in the 12 cards on board, click the deck to shuffle and deal 12 new cards.  Note that the script will check for SETs on board and only redeal cards if there are none (sometimes SETs are very hard to see!)
 
 ## Set Examples 
 ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/4.png) | 
