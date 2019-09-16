@@ -32,7 +32,7 @@ function initializeDeck() {
     selected = [];
     var notification = document.getElementById("notification");
     notification.setAttribute("onClick", "");
-    notification.style.color = "grey";
+    notification.style.color = "#bfbfbf";
     for (var i = 0; i < 81; i++) {
         deck.push(i);
     }
@@ -50,7 +50,7 @@ function shuffleDeck() {
 }
 
 function selectCard(elmnt, loc) {
-    document.getElementById("notification").style.color = "grey";
+    document.getElementById("notification").style.color = "#bfbfbf";
     
     // Check if loc already in selected array (-1 if not)
     var select = selected.indexOf(loc);
@@ -58,7 +58,7 @@ function selectCard(elmnt, loc) {
     // Deselect card
     if (select >= 0) {
         selected.splice(select, 1);
-        elmnt.style.border = "5px solid grey";
+        elmnt.style.border = "5px solid #bfbfbf";
     // Select card
     } else if (select < 0 && selected.length < 3) {
         selected.push(loc); 
@@ -79,7 +79,7 @@ function replaceCards(cardIdxs) {
             var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
             on_table.splice(cardIdxs[i], 1, new_card) 
             cell.innerHTML = image_tag;
-            cell.style.border = "5px solid grey";
+            cell.style.border = "5px solid #bfbfbf";
         }
         deckLogo.style.visibility = (deck.length == 0 ? "hidden" : "visible");
     } else {
@@ -87,7 +87,7 @@ function replaceCards(cardIdxs) {
             var cellid = "cell".concat(cardIdxs[i].toString); 
             var cell = document.getElementById("cell".concat(cardIdxs[i].toString()));
             on_table.splice(cardIdxs[i], 1, -1) 
-            cell.style.border = "5px solid grey";
+            cell.style.border = "5px solid #bfbfbf";
         }
         for (var i = on_table.length-1; i >= 0; i--) {
             if (on_table[i] == -1) {

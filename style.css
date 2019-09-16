@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: grey;
+    background-color: #bfbfbf;
 }
 
 h1, h2 {
@@ -19,7 +19,7 @@ table {
 
 td {
     background-color: white;
-    border: 5px solid grey;
+    border: 5px solid #bfbfbf;
 }
 
 td {
@@ -61,7 +61,7 @@ ul {
 }
 
 #notification {
-    color: grey;
+    color: #bfbfbf;
 }
 
 #deckCount {
