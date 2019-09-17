@@ -61,12 +61,12 @@ ul {
 }
 
 .topright {
-    flex: 50%;
+    flex: 40%;
     text-align: center;
 }
 
 .topleft {
-    flex: 50%;
+    flex: 60%;
     text-align: center;
 }
 
