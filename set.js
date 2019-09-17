@@ -23,9 +23,6 @@ var update_timer = setInterval(function() {
 
 function startGame() {
     initializeDeck();
-    for (var i = 0; i < 81 - 15; i++) {
-        deck.pop()
-    }
     dealCards();
     updateDeckCount();
     final_time = null;
