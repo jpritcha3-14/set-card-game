@@ -2,10 +2,37 @@ var deck = [];
 var on_table = []; // unique number (0 - 80) for each card
 var selected = []; // indicies (0 - 11 or 14) of selected cards in on_table
 
+var start_time = 0;
+var final_time = null;
+var timer = document.getElementById("timer");
+const pad2 = num => num.toString().padStart(2, '0');
+var update_timer = setInterval(function() {
+    if (final_time === null)  {
+        var now = new Date().getTime();
+        var total_time = now - start_time;
+        var seconds = Math.floor(total_time / 1000);
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor(minutes / 60);
+        var time = pad2(hours) + ":" + pad2(minutes % 60) + ":" + pad2(seconds % 60);
+        timer.innerHTML = time;
+    } else {
+        timer.style.color = "blue";
+        timer.innerHTML = final_time;
+    }
+}, 1000);
+
 function startGame() {
     initializeDeck();
+    for (var i = 0; i < 81 - 15; i++) {
+        deck.pop()
+    }
     dealCards();
     updateDeckCount();
+    final_time = null;
+    start_time = new Date().getTime();
+    timer.style.color = "black";
+    timer.innerHTML = "00:00:00";
+    
 }
 
 function dealCards() {
@@ -32,6 +59,7 @@ function initializeDeck() {
     selected = [];
     var notification = document.getElementById("notification");
     notification.setAttribute("onClick", "");
+    notification.innerHTML = "SET";
     notification.style.color = "#bfbfbf";
     for (var i = 0; i < 81; i++) {
         deck.push(i);
@@ -205,11 +233,14 @@ function checkRemaining() {
             notification.innerHTML = "No more SETs, click here to restart";
             notification.style.color = "blue";
             notification.setAttribute("onClick", "startGame()");
+            final_time = timer.innerHTML;
+            timer.style.color = "blue";
         }
     }
 }
 
 const arrSum = arr => arr.reduce((a,b) => a + b, 0);
+
 
 function getColor(card) {
     return Math.floor(card / 27);
