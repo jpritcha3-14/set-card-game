@@ -12,36 +12,28 @@ The goal of the game is to identify SETs of 3 cards where, for each of the 4 pro
 Click 3 cards to identify a SET.  The script checks the validity of the selected cards as a SET before replacing the cards with 3 more from the deck.  If the selected cards do not form a SET, the reason(s) for this will be displayed to help new players understand the concept.  If there are no SETs in the 12 cards on board, click the deck to shuffle and deal 12 new cards.  Note that the script will check for SETs on board and only redeal cards if there are none (sometimes SETs are very hard to see!)
 
 ## Set Examples 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/4.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/13.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/22.png)
+![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/4.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/13.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/22.png) 
 --- | --- | ---
 * Same number
 * Same color
 * Same shape
 * Different shading
 ***
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/24.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/52.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/80.png)
+![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/24.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/52.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/80.png)
 --- | --- | ---
 * Different number
 * Different color
 * Same shape
 * Same shading
 ***
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/77.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/54.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/70.png)
+![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/77.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/54.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/70.png)
 --- | --- | ---
 * Different number
 * Same color
 * Different shape
 * Different shading
 ***
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/16.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/32.png) | 
-![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/72.png)
+![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/16.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/32.png) | ![alt text](https://github.com/jpritcha3-14/set-card-game/blob/master/cards/72.png)
 --- | --- | ---
 * Different number
 * Different color
