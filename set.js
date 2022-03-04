@@ -1,11 +1,16 @@
 var deck = [];
 var on_table = []; // unique number (0 - 80) for each card
 var selected = []; // indicies (0 - 11 or 14) of selected cards in on_table
+var sets_on_table = 0;
+
 
 var start_time = 0;
 var final_time = null;
 var timer = document.getElementById("timer");
+var notification = document.getElementById("notification");
+notification.style.visibility = "visible";
 const pad2 = num => num.toString().padStart(2, '0');
+
 var update_timer = setInterval(function() {
     if (final_time === null)  {
         var now = new Date().getTime();
@@ -25,11 +30,11 @@ function startGame() {
     initializeDeck();
     dealCards();
     updateDeckCount();
+    checkSetsOnBoard();
     final_time = null;
     start_time = new Date().getTime();
     timer.style.color = "black";
     timer.innerHTML = "00:00:00";
-    
 }
 
 function dealCards() {
@@ -43,6 +48,7 @@ function dealCards() {
             on_table.push(card_num);
         }
     }
+    checkSetsOnBoard();
 }
 
 function updateDeckCount() {
@@ -61,7 +67,6 @@ function initializeDeck() {
     for (var i = 0; i < 81; i++) {
         deck.push(i);
     }
-    document.getElementById("deck").style.visibility = "visible";
     shuffleDeck();
 }
 
@@ -75,9 +80,10 @@ function shuffleDeck() {
 }
 
 function selectCard(elmnt, loc) {
-    document.getElementById("notification").style.color = "#bfbfbf";
-    
+    notification.style.color = "black";
+    notification.innerHTML = `Sets on Board: ${sets_on_table}`;
     // Check if loc already in selected array (-1 if not)
+    //notification.style.color = "#bfbfbf";
     var select = selected.indexOf(loc);
 
     // Deselect card
@@ -95,7 +101,6 @@ function selectCard(elmnt, loc) {
 }
 
 function replaceCards(cardIdxs) {
-    var deckLogo = document.getElementById("deck");
     if (deck.length > 0) {
         for (var i = 0; i < cardIdxs.length; i++) {
             var new_card = deck.pop();
@@ -106,7 +111,7 @@ function replaceCards(cardIdxs) {
             cell.innerHTML = image_tag;
             cell.style.border = "5px solid #bfbfbf";
         }
-        deckLogo.style.visibility = (deck.length == 0 ? "hidden" : "visible");
+        checkSetsOnBoard();
     } else {
         for (var i = 0; i < cardIdxs.length; i++) {
             var cellid = "cell".concat(cardIdxs[i].toString); 
@@ -127,6 +132,9 @@ function replaceCards(cardIdxs) {
                 cell.style.visibility = "hidden";
             }
         }
+        sets_on_table = countSets(on_table);
+        notification.style.color = "black";
+        notification.innerHTML = `Sets on Board: ${sets_on_table}`;
     }
     updateDeckCount();
     selected = [];
@@ -200,19 +208,18 @@ function countSets(cards) {
     return count;
 }
 
-function dealNewBoard() {
-    var notification = document.getElementById("notification");
-    notification.style.visibility = "visible";
-    if (countSets(on_table) == 0) {
+function checkSetsOnBoard() {
+    sets_on_table = countSets(on_table);
+    if (sets_on_table === 0) {
         deck.push(...on_table);
         on_table = [];
         shuffleDeck();
         dealCards();        
-        notification.innerHTML = "12 new cards dealt";
-        notification.style.color = "black";
+        notification.style.color = "blue";
+        notification.innerHTML = `12 new cards dealt`;
     } else {
-        notification.innerHTML = "At least one set on board";
-        notification.style.color = "red";
+        notification.style.color = "black";
+        notification.innerHTML = `Sets on Board: ${sets_on_table}`;
     }
     checkRemaining();
 }
